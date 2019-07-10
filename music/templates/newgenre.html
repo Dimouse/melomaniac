@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="master.html" />
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" py:replace="''"/>
+  <title>New genre</title>
+</head>
+
+<body>
+
+<div>
+ <p>Adding new genre #${id}</p>
+</div>
+<!-- ##{B:PageContent} -->
+    <div>
+      <form action="/savegenre" method="post">
+        <input type="hidden" name="genre_id" value="${id}"/>
+
+	Genre name: 
+	<input type="text" size="100" name="name"/>
+ <br/>
+
+        Main genre: <select name="main_id">
+<option value="-1">No</option>
+	  <py:for each="genre in genres">
+<option value="${genre.genre_id}">${genre.name}</option>
+	  </py:for>
+        </select> <br />
+
+        <input type="submit" name="submit" value="Save"/>
+      </form>
+
+<br/>
+
+<a href="/genres">Back to genres</a>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="master.html" />
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" py:replace="''"/>
+  <title>New artist</title>
+</head>
+
+<body>
+
+<div>
+ <p>Adding new artist #${id}</p>
+</div>
+<!-- ##{B:PageContent} -->
+    <div>
+      <form action="/saveartist" method="post">
+        <input type="hidden" name="artist_id" value="${id}"/>
+
+	Artist name: 
+	<input type="text" size="100" name="name"/>
+ <br/>
+
+        Genre: <select name="genre_id">
+	  <py:for each="genre in genres">
+<option value="${genre.genre_id}">${genre.name}</option>
+	  </py:for>
+        </select> <br />
+
+	Country: 
+	<input type="text" size="100" name="country"/>
+ <br/>
+
+	Description: 
+	<input type="text" size="100" name="descr"/>
+ <br/>
+
+        <input type="submit" name="submit" value="Save"/>
+      </form>
+
+<br/>
+
+<a href="/artists">Back to artists</a>
+
+    </div>
+
+</body>
+</html>

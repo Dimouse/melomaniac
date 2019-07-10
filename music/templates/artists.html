@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="master.html" />
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" py:replace="''"/>
+  <title>Artists list</title>
+</head>
+
+<body>
+
+<div class="main_content">
+
+<h1>List of artists</h1>
+
+<table border="1" width="100%">
+<tr><th><a href="/artists/0">ID</a></th><th><a href="/artists/3">name</a></th><th><a href="/artists/4">genre</a></th><th><a href="/artists/2">country</a></th><th><a href="/artists/1">rating</a></th></tr>
+
+<tr py:for="i,artist in enumerate(artists)" class="${i%2 and 'even' or 'odd'}">
+<td> ${artist.artist_id} <a href_="/editartist/${artist.artist_id}" onclick="doModal('/editartist/${artist.artist_id}')">Edit</a></td>
+<td> <a href="/albums/${artist.artist_id}"> ${artist.name}</a></td>
+<td> ${artist.genre.name} </td>
+<td> ${artist.country} </td>
+<td> ${score[i]} </td>
+    </tr>
+</table>
+
+<iframe class="basic-modal-content" id="modal_frame" hidden="hidden" width="1000" height="500" > </iframe>
+
+<a href_="/newartist" onclick="doModal('/newartist')">Add new artist</a>
+<br />
+Back to <a href="/">main page</a>.
+
+</div>
+
+</body>
+</html>
+

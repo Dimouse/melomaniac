@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="master.html" />
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" py:replace="''"/>
+  <title>Albums list</title>
+</head>
+
+<body>
+
+<div class="main_content">
+
+<h1>List of albums</h1>
+
+<div>
+Filters: <br />
+<py:if test="num">
+<b py:if="uri_artist">Artist: ${albums[0].artist.name} </b>
+<b py:if="uri_year">Year: ${albums[0].year} </b>
+<b py:if="uri_rating">Rating: ${albums[0].rating} </b>
+<b py:if="uri_genre">Genre: ${albums[0].genre.name} </b>
+<b py:if="uri_have">Have: ${albums[0].have} </b>
+<b py:if="uri_period">Period: last ${uri_period} days </b>
+</py:if>
+</div>
+
+<table border="0" width="100%">
+<tr>
+<th>num</th>
+<th>artist </th>
+<th>title </th>
+<th>year </th>
+<th>rating </th>
+
+</tr>
+
+<tr py:for="i,album in enumerate(albums)" >
+<td> $i </td>
+<td>  ${album.artist.name} </td>
+<td py:with="type=['','[Live album]','[Compilation]','[Bootleg]','[EP or Single]','[Demo]','[Sessions]','[Covers]','[DVD]']"> ${album.title} ${type[album.atype]}</td>
+<td> ${album.year} </td>
+<td py:if="album.rating!=-1">${album.rating} </td>
+    </tr>
+</table>
+
+
+</div>
+
+</body>
+</html>
+

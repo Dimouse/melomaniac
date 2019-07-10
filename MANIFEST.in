@@ -1,0 +1,6 @@
+include start-music.py
+include *.cfg
+include music/config/*.cfg
+recursive-include music/templates *.html
+recursive-include music/templates *.kid
+recursive-include music/static *

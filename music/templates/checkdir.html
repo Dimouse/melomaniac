@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="master.html" />
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" py:replace="''"/>
+  <title>Albums list</title>
+</head>
+
+<body>
+
+<div class="main_content">
+
+<h1>List of tracks</h1>
+
+<table border="1" width="100%">
+<tr py:for="i,t in enumerate(tracks)" class="${i%2 and 'even' or 'odd'}">
+<td> ${t.name} </td>
+<td> ${t.artist} </td>
+<td> ${t.album} </td>
+<td> ${int(t.length/60)}:
+	<py:if test="divmod(int(t.length),60)[1]/10 == 0">0</py:if>${int(t.length%60)}</td>
+	<td> ${t.bitrate/1000} </td>
+</tr>
+</table>
+
+Back to <a href="/">main page</a>.
+
+</div>
+
+</body>
+</html>
+

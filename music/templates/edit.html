@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="master.html" />
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" py:replace="''"/>
+  <title>Edit album</title>
+</head>
+
+<body>
+
+<div>
+ <p>Edit album #${album.album_id}</p>
+</div>
+<!-- ##{B:PageContent} -->
+    <div class="main_content">
+      <form action="/save" method="post">
+        <input type="hidden" name="album_id" value="${album.album_id}"/>
+
+	Album title: 
+	<input type="text" size="100" name="title" value="${album.title}"/>
+
+        Artist: <select name="artist_id">
+	  <py:for each="artist in artists">
+	  <py:choose test="artist.artist_id">
+          <py:when test="album.artist_id">
+<option selected="selected" value="${artist.artist_id}">${artist.name}</option></py:when>
+          <py:otherwise>
+<option value="${artist.artist_id}">${artist.name}</option></py:otherwise>
+	  </py:choose>
+	  </py:for>
+        </select> 
+
+        Genre: <select name="genre_id">
+	  <py:for each="genre in genres">
+	  <py:choose test="genre.genre_id">
+          <py:when test="album.genre_id">
+<option selected="selected" value="${genre.genre_id}">${genre.name}</option></py:when>
+          <py:otherwise>
+<option value="${genre.genre_id}">${genre.name}</option></py:otherwise>
+	  </py:choose>
+	  </py:for>
+        </select> 
+
+        Year: <select name="year">
+	  <py:for each="year in range(1950,2020)">
+	  <py:choose test="year">
+          <py:when test="album.year">
+<option selected="selected" value="${year}">${year}</option></py:when>
+          <py:otherwise>
+<option value="${year}">${year}</option></py:otherwise>
+	  </py:choose>
+	  </py:for>
+        </select> 
+
+	Have: <select name="have">
+<py:for each="i,have in enumerate(['No','Only MP3','Only CD','MP3+CD','Original CD','MP3+Original','Only LP','MP3+LP','MP3+LP+CD','MP3+LP+Original'])">
+	  <py:choose test="i">
+          <py:when test="album.have">
+<option selected="selected" value="${i}">${have}</option></py:when>
+          <py:otherwise>
+<option value="${i}">${have}</option></py:otherwise>
+	  </py:choose>
+</py:for>
+        </select> 
+
+        Rating: <select name="rating">
+	  <py:for each="rating in range(-1,11)">
+	  <py:choose test="rating">
+          <py:when test="album.rating">
+<option selected="selected" value="${rating}">${rating}</option></py:when>
+          <py:otherwise>
+<option value="${rating}">${rating}</option></py:otherwise>
+	  </py:choose>
+	  </py:for>
+        </select> 
+
+	Type: <select name="atype">
+<py:for each="i,type in enumerate(['Album','Live','Compilation','Bootleg','EP or Single','Demo','Sessions','Covers','DVD'])">
+	  <py:choose test="i">
+          <py:when test="album.atype">
+<option selected="selected" value="${i}">${type}</option></py:when>
+          <py:otherwise>
+<option value="${i}">${type}</option></py:otherwise>
+	  </py:choose>
+</py:for>
+        </select> 
+
+        <input type="submit" name="submit" value="Save"/>
+      </form>
+
+    </div>
+
+</body>
+</html>

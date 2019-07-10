@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="master.html" />
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" py:replace="''"/>
+  <title>Albums list</title>
+</head>
+
+<body>
+
+<div class="main_content">
+
+<h1>List of found albums</h1>
+
+<table border="1" width="100%">
+<tr py:for="i,a in enumerate(found)" class="${i%2 and 'even' or 'odd'}">
+<td> ${a.artist.name} </td>
+<td> ${a.title} </td>
+<td> ${a.year} </td>
+</tr>
+</table>
+
+<h1>List of not found albums</h1>
+
+<table border="1" width="100%">
+<tr py:for="i,a in enumerate(notfound)" class="${i%2 and 'even' or 'odd'}">
+
+<td> <a href="/albums/${artists[i].artist_id}"> ${artists[i].name}</a></td>
+<td> ${a.title} </td>
+<td> 
+<a onclick="doModal2('/newalbum/${a.title}/${a.artist_id}/${a.genre_id}/${a.year}/${a.have}/${a.rating}/${a.atype}')"><font color="FF0000">Add to DB</font></a>
+</td>
+</tr>
+</table>
+
+<iframe class="basic-modal-content" id="modal_frame" hidden="hidden" width="1000" height="500" > </iframe>
+
+Back to <a href="/">main page</a>.
+
+</div>
+
+</body>
+</html>
+

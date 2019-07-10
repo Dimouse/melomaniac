@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="master.html" />
+
+<?python
+from turbogears.i18n.format import format_date
+def dateandtime(d):
+    return format_date(d, format="full", time_format=" @ %X %Z")
+?>
+
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type" py:replace="''"/>
+    <title>Welcome to MeloManiac</title>
+</head>
+<body>
+
+<div class="main_content">
+
+<center><h1>Welcome to MeloManiac!</h1></center>
+
+<table>
+<tr>
+<th width="33%"><a>Data base</a></th>
+<th width="33%"><a>Filters</a></th>
+<th width="33%"><a>Tools</a></th>
+</tr>
+
+<tr>
+<td>
+<h1><a href="artists">Artists page</a></h1>
+
+<h1><a href="albums">Albums page</a> </h1> 
+
+<h1><a href="genres">Genres page</a></h1>
+
+<center>
+<a href="/albums_byyear">albums vs year</a>
+<br/>
+<a href="/albums_bydate">albums vs date</a>
+<br/>
+<a href="/albums_byrating">albums vs rating</a>
+<br/>
+<a href="/albums_bygenre">albums vs genre</a>
+<br/>
+<a href="/albums_bycountry">albums vs country</a>
+<br/>
+<a href="/artists_bycountry">artists vs country</a>
+
+</center>
+
+</td>
+<td>
+
+<h1>Rips I <a href="/albums/0/0/0/0/10/1">don't have</a> or <a href="/albums/0/0/0/0/11/1">have</a></h1>
+
+<h1>Collection of <a href="/albums/0/0/0/0/12/1">CD</a> and <a href="/albums/0/0/0/0/13/1">LP</a></h1>
+
+<h1><a href="albums/0/0/-1/0/11/1">Albums to listen to</a></h1>
+
+<h1><a href="albums/0/0/0/0/0/7/30">Albums last month</a></h1>
+
+</td>
+<td>
+
+<h1><a href="saveuni">Convert tags to unicode</a></h1>
+
+<h1>List tracks in directory:</h1>
+      <form action="/checkdir" method="post">
+
+	Directory: 
+	<input type="text" size="40" name="path"/>
+        <input type="submit" name="submit" value="Check"/>
+      </form>
+
+<h1>Check albums in directory:</h1>
+      <form action="/checkdir2" method="post">
+
+	Directory: 
+	<input type="text" size="40" name="path"/>
+        <input type="submit" name="submit" value="Check"/>
+      </form>
+</td>
+</tr>
+</table>
+
+</div>
+
+</body>
+</html>

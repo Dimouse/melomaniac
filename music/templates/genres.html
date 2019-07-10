@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="master.html" />
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" py:replace="''"/>
+  <title>Genres list</title>
+</head>
+
+<body>
+
+<div class="main_content">
+
+<h1>List of genres</h1>
+
+<table border="1" width="100%">
+<tr><th><a>ID</a></th><th><a>name</a></th><th><a>count</a></th><th><a>parent genre</a></th></tr>
+
+<tr py:for="i,genre in enumerate(genres)" class="${i%2 and 'even' or 'odd'}">
+<td> ${genre[0].genre_id} </td>
+<td> <a href="/albums/0/0/0/${genre[0].genre_id}"> ${genre[0].name}</a> <a href="/albums_byyear/${genre[0].genre_id}">stats</a></td>
+<td> ${genre[1]}</td>
+<td> 
+<py:if test="genre[0].main_genre_id != -1">
+${genres[genre[0].main_genre_id][0].name}
+</py:if>
+ </td>
+    </tr>
+</table>
+
+<a href="/newgenre">Add new genre</a>
+<br />
+Back to <a href="/">main page</a>.
+
+</div>
+
+</body>
+</html>
+

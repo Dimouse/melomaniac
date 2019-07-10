@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="master.html" />
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" py:replace="''"/>
+  <title>Albums list</title>
+</head>
+
+<body>
+
+<div class="main_content">
+
+<h1>List of albums</h1>
+
+<div style="float:right;">
+<a href="/albums/${uri_artist}/${uri_year}/${uri_rating}/${uri_genre}/${uri_have}/${uri_sort}/${uri_period}/1">Print version</a>
+</div>
+
+<div>
+Filters: <br />
+<py:if test="num">
+<b py:if="uri_artist">Artist: ${albums[0].artist.name} <a href="/albums/0/${uri_year}/${uri_rating}/${uri_genre}/${uri_have}/${uri_sort}/${uri_period}"> x </a></b>
+<b py:if="uri_year">Year: ${albums[0].year} <a href="/albums/${uri_artist}/0/${uri_rating}/${uri_genre}/${uri_have}/${uri_sort}/${uri_period}"> x </a></b>
+<b py:if="uri_rating">Rating: ${albums[0].rating} <a href="/albums/${uri_artist}/${uri_year}/0/${uri_genre}/${uri_have}/${uri_sort}/${uri_period}"> x </a></b>
+<b py:if="uri_genre">Genre: ${albums[0].genre.name} <a href="/albums/${uri_artist}/${uri_year}/${uri_rating}/0/${uri_have}/${uri_sort}/${uri_period}"> x </a></b>
+<b py:if="uri_have">Have: ${albums[0].have} <a href="/albums/${uri_artist}/${uri_year}/${uri_rating}/${uri_genre}/0/${uri_sort}/${uri_period}"> x </a></b>
+<b py:if="uri_period">Period: last ${uri_period} days <a href="/albums/${uri_artist}/${uri_year}/${uri_rating}/${uri_genre}/${uri_have}/${uri_sort}/0"> x </a></b>
+</py:if>
+</div>
+
+<table border="1" width="100%">
+<tr>
+<th><a href="/albums/${uri_artist}/${uri_year}/${uri_rating}/${uri_genre}/${uri_have}/0/${uri_period}"> num </a></th>
+<th><a href="/albums/${uri_artist}/${uri_year}/${uri_rating}/${uri_genre}/${uri_have}/1/${uri_period}"> artist </a></th>
+<th><a href="/albums/${uri_artist}/${uri_year}/${uri_rating}/${uri_genre}/${uri_have}/2/${uri_period}">title </a></th>
+<th><a href="/albums/${uri_artist}/${uri_year}/${uri_rating}/${uri_genre}/${uri_have}/3/${uri_period}">genre </a></th>
+<th><a href="/albums/${uri_artist}/${uri_year}/${uri_rating}/${uri_genre}/${uri_have}/4/${uri_period}">year </a></th>
+<th><a href="/albums/${uri_artist}/${uri_year}/${uri_rating}/${uri_genre}/${uri_have}/5/${uri_period}">rating </a></th>
+<th><a href="/albums/${uri_artist}/${uri_year}/${uri_rating}/${uri_genre}/${uri_have}/6/${uri_period}">have </a></th>
+<th><a href="/albums/${uri_artist}/${uri_year}/${uri_rating}/${uri_genre}/${uri_have}/7/${uri_period}">last change </a></th>
+</tr>
+
+<tr py:for="i,album in enumerate(albums)" class="${i%2 and 'even' or 'odd'}">
+<td> ${i+1} </td>
+<td> <a href="/albums/${album.artist_id}/${uri_year}/${uri_rating}/${uri_genre}/${uri_have}"> ${album.artist.name}</a> </td>
+<td py:with="type=['','Live album','Compilation','Bootleg','EP or Single','Demo','Sessions','Covers','DVD']"> <a href_="/edit/${album.album_id}" onclick="doModal('/edit/${album.album_id}')">${album.title}</a> <font color="FF0000">${type[album.atype]}</font></td>
+<td> <a href="/albums/${uri_artist}/${uri_year}/${uri_rating}/${album.genre_id}/${uri_have}">${album.genre.name}</a> </td>
+<td> <a href="/albums/${uri_artist}/${album.year}/${uri_rating}/${uri_genre}/${uri_have}">${album.year}</a> </td>
+<td> <a href="/albums/${uri_artist}/${uri_year}/${album.rating}/${uri_genre}/${uri_have}">${album.rating}</a></td>
+<py:for each="j,have in enumerate(['No','Only MP3','Only CD','MP3+CD','Original CD','MP3+Original','Only LP','MP3+LP','MP3+LP+CD','MP3+LP+Original'])">
+	  <py:choose test="j">
+          <py:when test="album.have">
+<td> <a href="/albums/${uri_artist}/${uri_year}/${uri_rating}/${uri_genre}/$j"> $have </a> </td>
+</py:when>
+</py:choose>
+</py:for>
+<td> ${album.date} </td>
+</tr>
+</table>
+
+<iframe class="basic-modal-content" id="modal_frame" hidden="hidden" width="1000" height="500" > </iframe>
+
+<a href_="/newalbum" onclick="doModal('/newalbum')">Add new album</a>
+<br />
+Back to <a href="/">main page</a>.
+
+</div>
+
+</body>
+</html>
+
