@@ -47,7 +47,7 @@
         </select> 
 
         Year: <select name="year">
-	  <py:for each="year in range(1950,2020)">
+	  <py:for each="year in range(1950,datetime.datetime.now().year+1)">
 	  <py:choose test="year">
           <py:when test="album.year">
 <option selected="selected" value="${year}">${year}</option></py:when>

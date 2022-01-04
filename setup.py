@@ -57,7 +57,7 @@ setup(
     install_requires=[
         "TurboGears == 1.1.3",
         "WebTest",
-        "SQLAlchemy==0.7",
+        "SQLAlchemy == 1.3.15",
     ],
     zip_safe=False,
     packages=packages,

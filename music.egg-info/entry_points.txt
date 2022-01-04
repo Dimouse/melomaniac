@@ -1,4 +1,4 @@
 [console_scripts]
-start-music = music.command:start
 bootstrap-music = music.command:bootstrap
+start-music = music.command:start
 

@@ -153,7 +153,8 @@ class Root(controllers.RootController):
     def get_years(self,genre):
 #        g=session.query(Genre).all()
 	res=""
-	for y in range(1950,2020):	
+	now = datetime.datetime.now()
+	for y in range(1950,now.year + 1):	
           c = session.query(func.count(Album.year)).filter(Album.year==y)
           if genre!="-1":
             c=c.filter(Album.genre_id==genre)
@@ -567,7 +568,15 @@ class Root(controllers.RootController):
 			    title = title.replace("?","_")
 
 #			    print title
-			    album = Album(100000,unicode(title),ar[0].artist_id,ar[0].genre_id,fid3["TDRC"].text,1,-1,0,datetime.datetime.now())
+			    if "TDRC" in fid3:
+			      year = fid3["TDRC"].text
+			    else:
+			      year = "1950"
+			    if len(year)>0:
+			      year=str(year[0])
+			    if year.find("-") != -1:
+			      year=year.split("-")[0]
+			    album = Album(100000,unicode(title),ar[0].artist_id,ar[0].genre_id,year,1,-1,0,datetime.datetime.now())
 			    notfound.append(album)
 			    notfound_name.append(id3["album"])
 			    found_artist.append(ar[0])

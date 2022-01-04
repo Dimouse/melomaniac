@@ -50,7 +50,7 @@
 
           <label for="year">Year: </label>
           <select name="year">
-	  <py:for each="y in range(1950,2020)">
+	  <py:for each="y in range(1950,datetime.datetime.now().year+1)">
 	  <py:choose test="y">
           <py:when test="year">
 <option selected="selected" value="${y}">${y}</option></py:when>

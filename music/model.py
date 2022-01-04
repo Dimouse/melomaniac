@@ -5,10 +5,10 @@ import datetime
 import pkg_resources
 pkg_resources.require("SQLAlchemy>=0.4.3")
 
-from turbogears.database import get_engine, metadata, session
+from turbogears.database import get_engine, metadata, session, mapper
 # import the standard SQLAlchemy mapper
 
-from sqlalchemy.orm import mapper
+#from sqlalchemy.orm import mapper
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import relation
 
@@ -23,6 +23,46 @@ from sqlalchemy import String, Unicode, Integer, DateTime, Date, Text
 # import some datatypes for table columns from SQLAlchemy
 # (see http://www.sqlalchemy.org/docs/05/reference/sqlalchemy/types.html for more)
 
+# your model classes
+# http://www.sqlalchemy.org/docs/05/ormtutorial.html#define-a-python-class-to-be-mapped
+
+# class YourDataClass(object):
+#     pass
+
+
+class Artist(object):
+    pass
+
+    def __init__(self, id, name, genre_id, country, descr):
+        self.artist_id = id
+        self.name = name
+	self.genre_id = genre_id
+        self.country = country
+        self.descr = descr
+
+class Genre(object):
+    pass
+
+    def __init__(self, id, name, main):
+        self.genre_id = id
+        self.name = name
+	self.main_genre_id = main
+
+
+class Album(object):
+    pass
+
+    def __init__(self, id, title, artist_id, genre_id, year, have, rating, atype, date):
+        self.album_id = id
+        self.title = title
+        self.artist_id = artist_id
+        self.year = year
+        self.have = have
+        self.rating = rating
+        self.genre_id = genre_id
+        self.atype = atype
+        self.date = date
+        self.old_id = ""
 
 
 # your data tables
@@ -32,7 +72,7 @@ from sqlalchemy import String, Unicode, Integer, DateTime, Date, Text
 #     Column('my_id', Integer, primary_key=True)
 # )
 
-artists_table = Table('artists', metadata,
+artists = Table('artists', metadata,
     Column('artist_id', Integer, primary_key=True, nullable=False),
     Column('name', Unicode(255), unique=True, nullable=False),
     Column('country', Unicode(255)),
@@ -59,69 +99,12 @@ albums_table = Table('albums', metadata,
     Column('date', Date)
 )
 
-
-# your model classes
-# http://www.sqlalchemy.org/docs/05/ormtutorial.html#define-a-python-class-to-be-mapped
-
-# class YourDataClass(object):
-#     pass
-
-
-class Artist(object):
-    artist_id = int
-    name = unicode
-    country = unicode
-    descr = unicode
-    genre_id = int
-
-    def __init__(self, id, name, genre_id, country, descr):
-        self.artist_id = id
-        self.name = name
-	self.genre_id = genre_id
-        self.country = country
-        self.descr = descr
-
-class Genre(object):
-    genre_id = int
-    name = unicode
-    main_genre_id = int
-
-    def __init__(self, id, name, main):
-        self.genre_id = id
-        self.name = name
-	self.main_genre_id = main
-
-
-class Album(object):
-    album_id = int
-    title = unicode
-    artist_id = int
-    old_id = unicode
-    year = int
-    have = int
-    rating = int
-    genre_id = int
-    atype = int
-    date = datetime
-
-    def __init__(self, id, title, artist_id, genre_id, year, have, rating, atype, date):
-        self.album_id = id
-        self.title = title
-        self.artist_id = artist_id
-        self.year = year
-        self.have = have
-        self.rating = rating
-        self.genre_id = genre_id
-        self.atype = atype
-        self.date = date
-        self.old_id = ""
-
 # set up mappers between your data tables and classes
 # http://www.sqlalchemy.org/docs/05/mappers.html
 
 # mapper(YourDataClass, your_table)
 
-mapper(Artist, artists_table, properties={
+mapper(Artist, artists, properties={
     'genre': relationship(Genre, backref='artist')
 })
 mapper(Genre, genres_table)
